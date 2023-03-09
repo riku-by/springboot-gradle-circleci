@@ -4,6 +4,8 @@ workflows:
   general-workflow:
     jobs:
       - build
+      - unit-test
+      - jacoco-test
 
 
 
@@ -26,3 +28,17 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+  unit-test:
+    docker:
+      - image: cimg/openjdk:17.0.6
+    steps:
+      - checkout
+
+      - run: gradle test
+  jacoco-test:
+    docker:
+    - image: cimg/openjdk:17.0.6
+    steps:
+    - checkout
+
+    - run: gradle jacocoTestReport
