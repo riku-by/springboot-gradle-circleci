@@ -20,9 +20,7 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies-
 
-      - run: chmod +x gradlew
-
-      - run: gradl build
+      - run: gradle build
 
       - save_cache:
           paths:
