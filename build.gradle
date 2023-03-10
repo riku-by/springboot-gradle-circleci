@@ -1,8 +1,19 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.owasp:dependency-check-gradle:8.1.2'
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'jacoco'
+	id 'checkstyle'
+	id "org.owasp.dependencycheck" version "8.1.2"
 }
 
 group = 'com.example'
@@ -18,25 +29,31 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }
 
-test {
-//	finalizedBy jacocoTestReport
-}
 jacocoTestReport {
 	dependsOn test
 }
-//jacocoTestReport {
-//	reports {
-//		xml.required = false
-//		csv.required = false
-////		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-//	}
-//}
 
 jacoco {
 	toolVersion = "0.8.8"
 	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
+
+checkstyle {
+	toolVersion ="8.45.1"
+//	configFile = file("config/google_checks.xml")
+}
+
+dependencyCheck {
+	// Fail the build when there is a finding with "medium" severity.
+//	failBuildOnCVSS = 4
+	// Only check the compile classpath and ignore findings in other configurations.
+//	scanConfigurations = ['debugCompileClasspath', 'acceptanceCompileClasspath', 'productionCompileClasspath']
+//	suppressionFiles = ["${rootDir}/extra/owasp.suppression.xml"]
+}
+
+
+
