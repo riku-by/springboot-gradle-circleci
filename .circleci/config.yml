@@ -38,7 +38,7 @@ jobs:
       - checkout
       - when:
           condition:
-            equal: [ true, true ]
+            equal: [ "true", "true" ]
           steps:
             - run: gradle test
   jacoco-test:
@@ -48,7 +48,7 @@ jobs:
     - checkout
     - when:
           condition:
-            equal: [ true, false ]
+            equal: [ "true", "false" ]
           steps:
             - run: gradle jacocoTestReport
 
