@@ -22,6 +22,6 @@ jobs:
       - image: cimg/openjdk:17.0.6    
     steps:
       - run: echo "Running tests"
-      - run: echo "My parameter is:${my_parameter}"
+      - run: echo "My parameter is:"${my_parameter}
     # when: <<${my_parameter} == true>>
       
