@@ -74,7 +74,7 @@ jobs:
     - image: cimg/openjdk:17.0.6
     steps:
     - checkout
-
+    - run: rm -rf ~/repo/*
     - run:
         name: Install SonarScanner
         command: |
