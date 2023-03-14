@@ -74,22 +74,36 @@ jobs:
     - image: cimg/openjdk:17.0.6
     steps:
     - checkout
-    - run: rm -rf ~/repo
-    - run: echo $PATH
+
     - run:
-        name: Install SonarScanner
+        name: Get GitHub Info
         command: |
-          mkdir -p ~/repo/SonarScanner
-          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner          
+          echo "GitHub Username: ${CIRCLE_PROJECT_USERNAME}"
+          echo "GitHub Repo Name: ${CIRCLE_PROJECT_REPONAME}"
+          echo "Git Branch: ${CIRCLE_BRANCH}"
+          echo "Git Commit: ${CIRCLE_SHA1}"
+          echo "Build URL: ${CIRCLE_BUILD_URL}"
+          echo "Pull Request Number: ${CIRCLE_PULL_REQUEST}"
+          echo "GitHub Token: ${GITHUB_TOKEN}"
+
+    # - run:
+    #     name: Install SonarScanner
+    #     command: |
+    #       mkdir -p ~/repo/SonarScanner
+    #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+    #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner          
           
-    - run: 
-        command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=23aae1eab72b3a60099e9eb1bcac185f02700cc6 \
-            -Dsonar.organization=riku-by \
-            -Dsonar.projectKey=riku-by_springboot-gradle-circleci
+    # - run: 
+    #     command: |
+    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
+    #         # SonarQubeログイン用URL
+    #         -Dsonar.host.url=https://sonarcloud.io \
+    #         # SonarQubeログイン時に使用するトークン
+    #         -Dsonar.login=23aae1eab72b3a60099e9eb1bcac185f02700cc6 \
+    #         # SonarQubeのプロジェクト名の先頭に付与するベンダー名
+    #         -Dsonar.organization=riku-by \
+    #         # SonarQubeのプロジェクト名
+    #         -Dsonar.projectKey=riku-by_springboot-gradle-circleci
           
     # - run: ls
     # - run: sonar-scanner/bin/
