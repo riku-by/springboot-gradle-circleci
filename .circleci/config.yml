@@ -86,7 +86,7 @@ jobs:
         command: |
           echo "Vendor name: $VENDOR_NAME"
           echo "GitHub Repo Name: ${CIRCLE_PROJECT_REPONAME}"
-          echo "projectKey: $VENDOR_NAME_${CIRCLE_PROJECT_REPONAME}"
+          echo "projectKey: $VENDOR_NAME"_"${CIRCLE_PROJECT_REPONAME}"
 
     # - run: 
     #     command: |
