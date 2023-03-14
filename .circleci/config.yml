@@ -92,11 +92,11 @@ jobs:
         command: |
           ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
             # SonarQubeログイン用URL
-            -Dsonar.host.url=$SONARQUBE_URL \
+            -Dsonar.host.url="$SONARQUBE_URL" \
             # SonarQubeログイン時に使用するトークン
-            -Dsonar.login=$SONARQUBE_TOKEN \
+            -Dsonar.login="$SONARQUBE_TOKEN" \
             # SonarQubeのプロジェクト名の先頭に付与するベンダー名
-            -Dsonar.organization=$VENDOR_NAME \
+            -Dsonar.organization="$VENDOR_NAME" \
             # SonarQubeのプロジェクト名
             -Dsonar.projectKey="$VENDOR_NAME"_"${CIRCLE_PROJECT_REPONAME}"
           
