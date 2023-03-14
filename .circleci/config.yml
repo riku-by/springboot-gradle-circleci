@@ -3,7 +3,7 @@ version: 2.1
 workflows:
   general-workflow:
     jobs:
-      - build
+      # - build
       # - unit-test
       # - jacoco-test
       # - checkstyle
@@ -82,7 +82,7 @@ jobs:
           mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
-          cd ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin
+          cd ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/
           ls
           
     # - run: ls
