@@ -3,7 +3,7 @@ version: 2.1
 workflows:
   general-workflow:
     jobs:
-      # - build
+      - build
       # - unit-test
       # - jacoco-test
       # - checkstyle
