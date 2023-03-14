@@ -81,29 +81,7 @@ jobs:
           mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner          
-    # - run:
-    #     name: Get GitHub Info
-    #     command: |
-    #       echo "Vendor name: $VENDOR_NAME"
-    #       echo "GitHub Repo Name: ${CIRCLE_PROJECT_REPONAME}"
-    #       echo "projectKey: $VENDOR_NAME"_"${CIRCLE_PROJECT_REPONAME}"
 
-    # - run: 
-    #     command: |
-    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner --debug \
-    #         # SonarQubeログイン用URL
-    #         -Dsonar.host.url="$SONARQUBE_URL" \
-    #         # SonarQubeログイン時に使用するトークン
-    #         -Dsonar.login="$SONARQUBE_TOKEN" \
-    #         # SonarQubeのプロジェクト名の先頭に付与するベンダー名
-    #         -Dsonar.organization="$VENDOR_NAME" \
-    #         # SonarQubeのプロジェクト名
-    #         -Dsonar.projectKey="$VENDOR_NAME"_"${CIRCLE_PROJECT_REPONAME}"
-    
-    # SonarQubeログイン用URL
-    # SonarQubeログイン時に使用するトークン
-    # SonarQubeのプロジェクト名の先頭に付与するベンダー名
-    # SonarQubeのプロジェクト名
     - run: 
         command: |
           ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \            
