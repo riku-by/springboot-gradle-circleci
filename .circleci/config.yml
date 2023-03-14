@@ -89,8 +89,9 @@ jobs:
     - run: 
         command: |
           ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
+          -Dsonar.sources=src \
           -Dsonar.host.url=$SONARQUBE_URL \
           -Dsonar.login=$SONARQUBE_TOKEN \
           -Dsonar.organization=$VENDOR_NAME \
-          -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME} \
-          -Dsonar.sources=src \
+          -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+          
