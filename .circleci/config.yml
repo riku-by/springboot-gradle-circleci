@@ -1,10 +1,5 @@
 version: 2.1
 
-parameters:
-  my_parameter:
-    type: boolean
-    default: false    
-
 workflows:
   general-workflow:
     jobs:
@@ -14,15 +9,60 @@ workflows:
       # - checkstyle
       # - dependencycheck
 
+
+
+
 jobs:
   build:    
     docker:
       - image: cimg/openjdk:17.0.6    
     steps:
-      - run: echo "Running tests"
-      # - run: echo "My parameter is:"<< pipeline.parameters.my_parameter >>
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-
+
+      - run: gradle build -x test -x check
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+  unit-test:
+    docker:
+      - image: cimg/openjdk:17.0.6
+    steps:
+      - checkout
       - when:
-          condition: << pipeline.parameters.my_parameter >>
+          condition:
+            equal: [ "true", "true" ]
           steps:
-            - run: echo "my custom checkout"
-      
+            - run: gradle test
+  jacoco-test:
+    docker:
+    - image: cimg/openjdk:17.0.6
+    steps:
+    - checkout
+    - when:
+          condition:
+            equal: [ "true", "false" ]
+          steps:
+            - run: gradle jacocoTestReport
+
+  checkstyle:
+    docker:
+    - image: cimg/openjdk:17.0.6
+    steps:
+    - checkout
+    # - run: wget -p 
+
+  dependencycheck:
+    docker:
+    - image: cimg/openjdk:17.0.6
+    steps:
+    - checkout
+
+    # - run: gradle dependencyCheckAnalyze
