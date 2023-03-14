@@ -84,10 +84,6 @@ jobs:
           
     - run: 
         command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner 
-            -Dsonar.host.url=https://sonarcloud.io/  
-            -Dsonar.login=8655e648a6e8e48497b44434cc50b88024c843a1  
-            -Dsonar.organization=riku-by
-            -Dsonar.projectKey=riku-by_springboot-gradle-circleci  
-            -X
+          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner -X
+        
           
