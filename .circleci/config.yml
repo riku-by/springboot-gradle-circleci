@@ -84,8 +84,7 @@ jobs:
     - run: 
         command: |
           ls
-          cd ~/repo/sonar-scanner/sonar-scanner-4.8.0.2856-linux/bin
-          ls
+          
     # - run: ls
     # - run: sonar-scanner/bin/
     # - run: ls
