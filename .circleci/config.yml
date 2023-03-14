@@ -75,6 +75,7 @@ jobs:
     steps:
     - checkout
     - run: rm -rf ~/repo
+    - run: echo $PATH
     - run:
         name: Install SonarScanner
         command: |
@@ -82,6 +83,7 @@ jobs:
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
           export PATH=$PATH:~/repo/SonarScanner/sonar-scanner-cli-4.8.0.2856-linux/bin:$PATH
+          echo $PATH
     # - run: ls
     - run: 
         command: |
