@@ -85,6 +85,7 @@ jobs:
         name: Get GitHub Info
         command: |
           echo "Vendor name: $VENDOR_NAME"
+          echo "GitHub Repo Name: ${CIRCLE_PROJECT_REPONAME}"
 
     # - run: 
     #     command: |
