@@ -83,8 +83,8 @@ jobs:
     # - run: ls
     - run: 
         command: |
-          ls
-          cd ~/repo/sonar-scanner
+          
+          cd ~/repo/sonar-scanner/
           ls
           
     # - run: ls
