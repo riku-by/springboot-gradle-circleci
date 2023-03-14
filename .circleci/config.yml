@@ -82,7 +82,7 @@ jobs:
           unzip sonar-scanner-cli-4.8.0.2856-linux.zip -d sonar-scanner
     - run: 
         command: |
-          cd ~/repo/sonar-scanner/sonar-scanner-4.8.0.2856-linux
+          export ~/repo/sonar-scanner/sonar-scanner-4.8.0.2856-linux/bin
           ls
     # - run: ls
     # - run: sonar-scanner/bin/
