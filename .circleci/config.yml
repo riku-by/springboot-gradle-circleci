@@ -73,8 +73,8 @@ jobs:
     docker:
     - image: cimg/openjdk:17.0.6
     steps:
-    - checkout
     - run: rm -rf ~/repo/*
+    - checkout    
     - run:
         name: Install SonarScanner
         command: |
@@ -89,7 +89,7 @@ jobs:
     - run: 
         command: |
           ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-          -Dsonar.sources=src \
+          -Dsonar.sources=~/repo/springboot-gradle-circleci/src \
           -Dsonar.host.url=$SONARQUBE_URL \
           -Dsonar.login=$SONARQUBE_TOKEN \
           -Dsonar.organization=$VENDOR_NAME \
