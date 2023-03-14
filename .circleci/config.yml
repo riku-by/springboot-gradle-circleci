@@ -82,15 +82,17 @@ jobs:
           mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
-          export PATH=$PATH:~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin:$PATH
+          cd ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner
+          ls
+          echo $PATH
           
-    - run: 
-        command: |
-          sonar-scanner \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=23aae1eab72b3a60099e9eb1bcac185f02700cc6 \
-            -Dsonar.organization=riku-by \
-            -Dsonar.projectKey=riku-by_springboot-gradle-circleci
+    # - run: 
+    #     command: |
+    #       sonar-scanner \
+    #         -Dsonar.host.url=https://sonarcloud.io \
+    #         -Dsonar.login=23aae1eab72b3a60099e9eb1bcac185f02700cc6 \
+    #         -Dsonar.organization=riku-by \
+    #         -Dsonar.projectKey=riku-by_springboot-gradle-circleci
           
     # - run: ls
     # - run: sonar-scanner/bin/
