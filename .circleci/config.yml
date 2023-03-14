@@ -90,7 +90,7 @@ jobs:
 
     - run: 
         command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner -x \
+          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner --debug \
             # SonarQubeログイン用URL
             -Dsonar.host.url="$SONARQUBE_URL" \
             # SonarQubeログイン時に使用するトークン
