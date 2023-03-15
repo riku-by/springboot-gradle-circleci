@@ -82,7 +82,7 @@ jobs:
 
     
     - run: mv ~/repo/source ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
-    - run: cd ~/repo/source
+    - run: cd ~/repo
     # - run: cd ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     - run: ls
     
