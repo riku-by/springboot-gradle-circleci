@@ -75,7 +75,7 @@ jobs:
     - image: cimg/openjdk:17.0.6
     steps: 
     - run: rm -rf ~/repo/*
-    - run: git gc
+    
     - checkout
     - run: git submodule sync
     - run: git submodule update --init
