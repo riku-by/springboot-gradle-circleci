@@ -76,14 +76,15 @@ jobs:
     steps: 
     - run: rm -rf ~/repo/*
     
-    # - checkout    
+    - checkout    
     
-    # - run:
-    #     name: Install SonarScanner
-    #     command: |          
-    #       mkdir -p ~/repo/SonarScanner
-    #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-    #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
+    - run:
+        name: Install SonarScanner
+        command: |          
+          mkdir -p ~/repo/SonarScanner
+          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
+           
           
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
