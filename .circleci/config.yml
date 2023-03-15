@@ -76,24 +76,24 @@ jobs:
     steps: 
     - run: rm -rf ~/repo/*
     
-    - checkout    
+    # - checkout    
     
-    - run:
-        name: Install SonarScanner
-        command: |          
-          mkdir -p ~/repo/SonarScanner
-          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
+    # - run:
+    #     name: Install SonarScanner
+    #     command: |          
+    #       mkdir -p ~/repo/SonarScanner
+    #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+    #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
           
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
     # ${CIRCLE_PROJECT_REPONAME}:GitHub Repo Name
-    - run: 
-        command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \        
-          -Dsonar.host.url=$SONARQUBE_URL \
-          -Dsonar.login=$SONARQUBE_TOKEN \
-          -Dsonar.organization=$VENDOR_NAME \
-          -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    # - run: 
+    #     command: |
+    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \        
+    #       -Dsonar.host.url=$SONARQUBE_URL \
+    #       -Dsonar.login=$SONARQUBE_TOKEN \
+    #       -Dsonar.organization=$VENDOR_NAME \
+    #       -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
           
