@@ -14,57 +14,58 @@ workflows:
 
 
 jobs:
-  build:    
-    docker:
-      - image: cimg/openjdk:17.0.6    
-    steps:
-      - checkout
+  # build:    
+  #   docker:
+  #     - image: cimg/openjdk:17.0.6    
+  #   steps:
+  #     - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            - v1-dependencies-
+  #     - restore_cache:
+  #         keys:
+  #           - v1-dependencies-{{ checksum "build.gradle" }}
+  #           - v1-dependencies-
 
-      - run: gradle build -x test -x check
+  #     - run: gradle build -x test -x check
 
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+  #     - save_cache:
+  #         paths:
+  #           - ~/.gradle
+  #         key: v1-dependencies-{{ checksum "build.gradle" }}
 
-  unit-test:
-    docker:
-      - image: cimg/openjdk:17.0.6
-    steps:
-      - checkout
-      - when:
-          condition:
-            equal: [ "true", "true" ]
-          steps:
-            - run: gradle test
-  jacoco-test:
-    docker:
-    - image: cimg/openjdk:17.0.6
-    steps:
-    - checkout
-    - when:
-          condition:
-            equal: [ "true", "false" ]
-          steps:
-            - run: gradle jacocoTestReport
+  # unit-test:
+  #   docker:
+  #     - image: cimg/openjdk:17.0.6
+  #   steps:
+  #     - checkout
+  #     - when:
+  #         condition:
+  #           equal: [ "true", "true" ]
+  #         steps:
+  #           - run: gradle test
 
-  checkstyle:
-    docker:
-    - image: cimg/openjdk:17.0.6
-    steps:
-    - checkout
-    # - run: wget -p 
+  # jacoco-test:
+  #   docker:
+  #   - image: cimg/openjdk:17.0.6
+  #   steps:
+  #   - checkout
+  #   - when:
+  #         condition:
+  #           equal: [ "true", "false" ]
+  #         steps:
+  #           - run: gradle jacocoTestReport
 
-  dependencycheck:
-    docker:
-    - image: cimg/openjdk:17.0.6
-    steps:
-    - checkout
+  # checkstyle:
+  #   docker:
+  #   - image: cimg/openjdk:17.0.6
+  #   steps:
+  #   - checkout
+  #   # - run: wget -p 
+
+  # dependencycheck:
+    # docker:
+    # - image: cimg/openjdk:17.0.6
+    # steps:
+    # - checkout
 
     # - run: gradle dependencyCheckAnalyze
     
@@ -80,18 +81,21 @@ jobs:
         command: |
           mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner          
+          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
+          cd ~/repo/
+          ls
+          
 
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
     # ${CIRCLE_PROJECT_REPONAME}:GitHub Repo Name
-    - run: 
-        command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-          -Dsonar.sources=~/repo/riku-by_springboot-gradle-circleci/src \
-          -Dsonar.host.url=$SONARQUBE_URL \
-          -Dsonar.login=$SONARQUBE_TOKEN \
-          -Dsonar.organization=$VENDOR_NAME \
-          -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    # - run: 
+    #     command: |
+    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
+    #       -Dsonar.sources=~/repo/riku-by_springboot-gradle-circleci/src \
+    #       -Dsonar.host.url=$SONARQUBE_URL \
+    #       -Dsonar.login=$SONARQUBE_TOKEN \
+    #       -Dsonar.organization=$VENDOR_NAME \
+    #       -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
           
