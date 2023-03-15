@@ -75,7 +75,7 @@ jobs:
     - image: cimg/openjdk:17.0.6
     steps: 
     - run: rm -rf ~/repo/*
-    # - run: mkdir -p ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    - run: mkdir -p ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     # - checkout
     
 
