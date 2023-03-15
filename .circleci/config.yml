@@ -8,8 +8,7 @@ workflows:
       # - jacoco-test
       # - checkstyle
       # - dependencycheck
-      - sonarqube-install
-      - sonarqube-exec
+      - sonarqube
 
 
 
@@ -70,18 +69,19 @@ jobs:
 
     # - run: gradle dependencyCheckAnalyze
     
-  sonarqube-install:
-    working_directory: ~/repo/SonarScanner
+  sonarqube:
+    working_directory: ~/repo/
     docker:
     - image: cimg/openjdk:17.0.6
     steps: 
-    - run: rm -rf ~/repo/SonarScanner/*
+    - run: rm -rf ~/repo/*
     
-    # - checkout    
+    - checkout    
     
     - run:
         name: Install SonarScanner
-        command: |
+        command: |          
+          mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
           
@@ -89,33 +89,9 @@ jobs:
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
     # ${CIRCLE_PROJECT_REPONAME}:GitHub Repo Name
-    # - run: 
-    #     command: |
-    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-    #       -Dsonar.host.url=$SONARQUBE_URL \
-    #       -Dsonar.login=$SONARQUBE_TOKEN \
-    #       -Dsonar.organization=$VENDOR_NAME \
-    #       -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
-
-  sonarqube-exec:
-    working_directory: ~/repo/riku-by_springboot-gradle-circleci
-    docker:
-    - image: cimg/openjdk:17.0.6
-    steps:  
-    
-    - checkout
-
-    - run: cd ~/repo/riku-by_springboot-gradle-circleci
-    - run: ls
-          
-    # $SONARQUBE_URL:SonarQubeログイン用URL
-    # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
-    # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
-    # ${CIRCLE_PROJECT_REPONAME}:GitHub Repo Name
     - run: 
         command: |
-          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-          -Dsonar.sources=~/repo/  \
+          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \        
           -Dsonar.host.url=$SONARQUBE_URL \
           -Dsonar.login=$SONARQUBE_TOKEN \
           -Dsonar.organization=$VENDOR_NAME \
