@@ -76,7 +76,11 @@ jobs:
     steps: 
     - run: rm -rf ~/repo/*
     
-    # - checkout
+    - checkout
+    - run: git submodule sync
+    - run: git submodule update --init
+
+    
     - run: cd ~/repo
     - run: ls
     
