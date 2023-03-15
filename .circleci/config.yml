@@ -74,14 +74,14 @@ jobs:
     docker:
     - image: cimg/openjdk:17.0.6
     steps: 
-    # - run: rm -rf ~/repo/*
+    - run: rm -rf ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     # - run: mkdir -p ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     # - run: cd ~/repo
     - checkout
     
 
     
-    - run: cd ~/repo
+    - run: cd ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     - run: ls
     
     # - run:
