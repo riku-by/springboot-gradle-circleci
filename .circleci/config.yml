@@ -113,11 +113,12 @@ jobs:
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
     # ${CIRCLE_PROJECT_REPONAME}:GitHub Repo Name
-    # - run: 
-    #     command: |
-    #       ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
-    #       -Dsonar.host.url=$SONARQUBE_URL \
-    #       -Dsonar.login=$SONARQUBE_TOKEN \
-    #       -Dsonar.organization=$VENDOR_NAME \
-    #       -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    - run: 
+        command: |
+          ~/repo/SonarScanner/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \
+          -Dsonar.sources=~/repo/  \
+          -Dsonar.host.url=$SONARQUBE_URL \
+          -Dsonar.login=$SONARQUBE_TOKEN \
+          -Dsonar.organization=$VENDOR_NAME \
+          -Dsonar.projectKey="$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
           
