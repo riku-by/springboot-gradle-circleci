@@ -73,14 +73,15 @@ jobs:
     working_directory: ~/repo
     docker:
     - image: cimg/openjdk:17.0.6
-    steps:        
+    steps: 
+    - run: rm -rf ~/repo/*
+
     - checkout
     
     - run:
         name: Install SonarScanner
         command: |          
           mkdir -p ~/repo/SonarScanner
-          rm -rf ~/repo/SonarScanner/*
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner                 
 
