@@ -77,6 +77,8 @@ jobs:
     - run: rm -rf ~/repo/*
 
     - checkout
+    - run: git submodule sync
+    - run: git submodule update --init
     
     - run:
         name: Install SonarScanner
@@ -84,7 +86,7 @@ jobs:
           mkdir -p ~/repo/SonarScanner
           wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
           unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
-          cd ~/project
+          cd ~/repo
           ls
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
