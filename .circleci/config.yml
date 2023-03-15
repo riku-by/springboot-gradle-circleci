@@ -70,18 +70,18 @@ jobs:
     # - run: gradle dependencyCheckAnalyze
     
   sonarqube:
-    working_directory: ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    working_directory: ~/repo/source
     docker:
     - image: cimg/openjdk:17.0.6
     steps: 
-    - run: rm -rf ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    # - run: rm -rf ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     # - run: mkdir -p ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
     # - run: cd ~/repo
     - checkout
     
 
     
-    - run: cd ~/repo/"$VENDOR_NAME"_${CIRCLE_PROJECT_REPONAME}
+    - run: cd ~/repo/source
     - run: ls
     
     # - run:
