@@ -77,8 +77,8 @@ jobs:
     - run: rm -rf ~/repo/*
     
     - checkout
-    - run: git submodule sync
-    - run: git submodule update --init
+    # - run: git submodule sync
+    # - run: git submodule update --init
     
     - run:
         name: Install SonarScanner
