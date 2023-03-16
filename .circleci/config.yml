@@ -88,11 +88,9 @@ jobs:
     - run:
         name: Get project from SonarQube
         command: |    
-          RESPONSE=$(curl -H 'Authorization: Basic NjI2NWVjMThhNGQ3MDUzOWFmZDhjOWNjYWYxYTBkZTEzMDJlMWM0ZTo=' 'https://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by') \
-          echo "Response: $RESPONSE" \
-          KEY_VALUE=$(echo "$RESPONSE" | jq '.components') \
-          echo "Key Value: $KEY_VALUE"
-
+          RESULT=$(curl -H 'Authorization: Basic NjI2NWVjMThhNGQ3MDUzOWFmZDhjOWNjYWYxYTBkZTEzMDJlMWM0ZTo=' 'https://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by') \
+          echo $RESULT | python -c "import sys, json; print json.load(sys.stdin)['components']"
+          
           
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
