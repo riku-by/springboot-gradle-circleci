@@ -88,8 +88,8 @@ jobs:
     - run:
         name: Get project from SonarQube
         command: |    
-          curl -X GET -V -H "Authorization: Basic 6265ec18a4d70539afd8c9ccaf1a0de1302e1c4e" https://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by/
-
+          curl --location 'http://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by' \
+          --header 'Authorization: Basic NjI2NWVjMThhNGQ3MDUzOWFmZDhjOWNjYWYxYTBkZTEzMDJlMWM0ZTo='
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
