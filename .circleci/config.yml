@@ -88,7 +88,7 @@ jobs:
     - run:
         name: Get project from SonarQube
         command: |    
-          curl -X GET -H "Authorization: Basic $SONARQUBE_TOKEN" "https://$SONARQUBE_URL/api/projects/search?projects='$VENDOR_NAME'_${CIRCLE_PROJECT_REPONAME}&organization=$VENDOR_NAME"
+          curl -X GET -H "Authorization: Basic $SONARQUBE_TOKEN" "http://$SONARQUBE_URL/api/projects/search?projects='$VENDOR_NAME'_${CIRCLE_PROJECT_REPONAME}&organization=$VENDOR_NAME"
     # $SONARQUBE_URL:SonarQubeログイン用URL
     # $SONARQUBE_TOKEN:SonarQubeログイン時に使用するトークン
     # $VENDOR_NAME:SonarQubeのプロジェクト名の先頭に付与するベンダー名
