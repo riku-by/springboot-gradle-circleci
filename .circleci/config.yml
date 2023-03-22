@@ -154,9 +154,9 @@ jobs:
       - when:
           condition: << parameters.exec-sonarqube >>  && << parameters.sonarqube-branch >>
           steps:
-            - run: echo "You Won!"
+            - run: echo "You Won1!"
       - when:
-          condition: << parameters.exec-sonarqube >>  && ！<< parameters.sonarqube-branch >>
+          condition: << parameters.exec-sonarqube >>  && [<< parameters.sonarqube-branch >> == false]
           steps:
-            - run: echo "You Won!"
+            - run: echo "You Won2!"
            
