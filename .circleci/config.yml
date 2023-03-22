@@ -76,25 +76,27 @@ jobs:
     steps:
       - checkout
 
-      - run: echo << parameters.exec-sonarqube >>
-      - run: echo << parameters.sonarqube-url >>
-      - run: echo << parameters.project-reponame >>
+      # - run: echo << parameters.exec-sonarqube >>
+      # - run: echo << parameters.sonarqube-url >>
+      # - run: echo << parameters.project-reponame >>
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            - v1-dependencies-
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "build.gradle" }}
+      #       - v1-dependencies-
 
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+      # - save_cache:
+      #     paths:
+      #       - ~/.gradle
+      #     key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # ビルド      
-      # - run: 
-      #     name: build
-      #     command: |
-      #       gradle build -x test -x check
+      - run: 
+          name: build
+          command: |
+            gradle build -x test -x check \
+            cd ~/repo \
+            ls
       # 単体テスト
       - when:
           condition: << parameters.exec-unit-test >>
