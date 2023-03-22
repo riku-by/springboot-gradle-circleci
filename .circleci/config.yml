@@ -149,18 +149,19 @@ jobs:
       - run: 
           command: |
             if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-              echo "You Won!"
+              - run: echo "You Won!"
             
       # - when:
-          # condition: << parameters.exec-sonarqube >>
-          # steps:
-          #   - run:
-          #       name: Install SonarScanner
-          #       command: |
-          #         mkdir -p ~/repo/SonarScanner
-          #         wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          #         unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner    
-          #   - run: 
-          #       name: sonarqube
-          #       command: |
-          #         gradle dependencyCheckAnalyze
+      #     condition: << parameters.exec-sonarqube >>
+      #     steps:
+      #       - run: echo "You Won!"
+            # - run:
+            #     name: Install SonarScanner
+            #     command: |
+            #       mkdir -p ~/repo/SonarScanner
+            #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+            #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner    
+            # - run: 
+            #     name: sonarqube
+            #     command: |
+            #       gradle dependencyCheckAnalyze
