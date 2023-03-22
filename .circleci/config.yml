@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   sonarqube: sonarsource/sonarcloud@1.1.1
 
+
 workflows:
   general-workflow:
     jobs:
@@ -152,11 +153,17 @@ jobs:
       #       - run: echo "You Won!"
             
       - when:
-          condition: << parameters.exec-sonarqube >>  && << parameters.sonarqube-branch >>
+          condition: 
+            and:
+              - << parameters.exec-sonarqube >>
+              - << parameters.sonarqube-branch >>
           steps:
             - run: echo "You Won1!"
-      - when:
-          condition: << parameters.exec-sonarqube >>  && [<< parameters.sonarqube-branch >> == false]
-          steps:
-            - run: echo "You Won2!"
+      # - when:
+      #     condition: 
+      #       and:
+      #         - << parameters.exec-sonarqube >>
+      #         - << parameters.sonarqube-branch >> == false
+      #     steps:
+      #       - run: echo "You Won2!"
            
