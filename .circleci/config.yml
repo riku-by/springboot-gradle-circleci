@@ -40,7 +40,7 @@ jobs:
       exec-sonarqube:
         description: SonarQubeの実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
-        default: true
+        default: false
       sonarqube-branch:
         description: SonarQubeのプロジェクト名へのブランチ名付与実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
@@ -94,11 +94,11 @@ jobs:
       #     key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # ビルド      
-      # - run: 
-      #     name: build
-      #     command: |
-      #       cd springboot-gradle-circleci 
-      #       gradle build -x test -x check 
+      - run: 
+          name: build
+          command: |
+            cd springboot-gradle-circleci 
+            gradle build -x test -x check 
       
       # - run: ls
       # - run: chmod -R 777 springboot-gradle-circleci
@@ -146,12 +146,7 @@ jobs:
                 name: dependencycheck
                 command: |
                   gradle dependencyCheckAnalyze
-      # レポート発行・メトリクス計測
-      # - run: 
-      #     command: |
-      #       if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-      #       - run: echo "You Won!"
-            
+      # レポート発行・メトリクス計測 
       - when:
           condition: 
             and:
@@ -166,4 +161,8 @@ jobs:
               - << parameters.sonarqube-branch >> == false
           steps:
             - run: echo "You Won2!"
-           
+      # ビルドアーティファクトの保存
+      - run: mkdir ~/repo/store_artifacts
+      - run: ls
+      # - run: cp -R ~/repo/springboot-gradle-circleci/build/  ~/build-artifacts/
+      # - run: ls
