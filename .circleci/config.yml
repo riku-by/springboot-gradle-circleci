@@ -75,6 +75,7 @@ jobs:
 
     steps:
       - run: rm -rf ~/repo/*
+      - run: mkdir << parameters.vendor-name >>_<< parameters.project-reponame >>
       - run: git clone https://github.com/riku-by/springboot-gradle-circleci.git
 
       # - run: echo << parameters.exec-sonarqube >>
