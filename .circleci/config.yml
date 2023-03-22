@@ -39,11 +39,11 @@ jobs:
       exec-sonarqube:
         description: SonarQubeの実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
-        default: false
+        default: true
       sonarqube-branch:
         description: SonarQubeのプロジェクト名へのブランチ名付与実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
-        default: false
+        default: true
       exec-qualitygate:
         description: Quality Gateの結果取得の実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
@@ -149,9 +149,8 @@ jobs:
       - run: 
           command: |
             if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-              echo "all true"
-            if [<< parameters.exec-sonarqube >> && !<< parameters.sonarqube-branch >>]; then
-              echo "one true"
+              echo "You Won!"
+            
       # - when:
           # condition: << parameters.exec-sonarqube >>
           # steps:
