@@ -149,7 +149,7 @@ jobs:
       - run: 
           command: |
             if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-              - run: echo "You Won!"
+            - run: echo "You Won!"
             
       # - when:
       #     condition: << parameters.exec-sonarqube >>
