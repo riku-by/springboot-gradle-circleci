@@ -98,8 +98,8 @@ jobs:
       #       gradle build -x test -x check 
       
 
-      - run: chmod -R 777 /springboot-gradle-circleci/
-      - run: ls /springboot-gradle-circleci/
+      - run: chmod -R 777 /springboot-gradle-circleci
+      - run: ls /springboot-gradle-circleci
 
 
 
