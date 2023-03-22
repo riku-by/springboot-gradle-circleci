@@ -98,7 +98,7 @@ jobs:
       #       gradle build -x test -x check 
       
 
-      - run: ls springboot-gradle-circleci/
+      - run: ls -l
 
 
 
