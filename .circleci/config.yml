@@ -163,6 +163,6 @@ jobs:
             - run: echo "You Won2!"
       # ビルドアーティファクトの保存
       - run: mkdir build_artifacts
-      - run: ls
+      - run: chmod -R 777 build_artifacts
       # - run: cp -R ~/repo/springboot-gradle-circleci/build/  ~/build-artifacts/
       - run: ls build-artifacts
