@@ -162,7 +162,7 @@ jobs:
           steps:
             - run: echo "You Won2!"
       # ビルドアーティファクトの保存
-      - run: mkdir ~/repo/store_artifacts
+      - run: mkdir ~/repo/build_artifacts
       - run: ls
       - run: cp -R ~/repo/springboot-gradle-circleci/build/  ~/build-artifacts/
       - run: ls build-artifacts
