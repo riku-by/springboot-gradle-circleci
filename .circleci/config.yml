@@ -99,7 +99,8 @@ jobs:
       
       - run: ls
       - run: chmod -R 777 springboot-gradle-circleci
-      - run: ls /springboot-gradle-circleci
+      - run: ls springboot-gradle-circleci
+      - run: ls
 
 
 
