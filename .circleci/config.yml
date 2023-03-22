@@ -78,7 +78,7 @@ jobs:
     
     - checkout 
 
-    - run: echo $SONARQUBE_URL
+    - run: echo $SONARQUBE_URL 
     
     # - run:
     #     name: Install SonarScanner
