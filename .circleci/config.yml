@@ -163,7 +163,9 @@ jobs:
             - run: echo "You Won2!"
       # ビルドアーティファクトの保存
       - run: mkdir build_artifacts
+      - run: mkdir test-results
       - run: cp -R springboot-gradle-circleci/build/libs/  build-artifacts/
       - store_artifacts:
           path: build-artifacts/
-          destination: build-artifactsフォルダーをCircleCIのアーティファクトとして保存
+      - store_test_results:
+          path: test-results/
