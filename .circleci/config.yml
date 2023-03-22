@@ -159,11 +159,11 @@ jobs:
               - << parameters.sonarqube-branch >>
           steps:
             - run: echo "You Won1!"
-      # - when:
-      #     condition: 
-      #       and:
-      #         - << parameters.exec-sonarqube >>
-      #         - << parameters.sonarqube-branch >> == false
-      #     steps:
-      #       - run: echo "You Won2!"
+      - when:
+          condition: 
+            and:
+              - << parameters.exec-sonarqube >>
+              - << parameters.sonarqube-branch >> == false
+          steps:
+            - run: echo "You Won2!"
            
