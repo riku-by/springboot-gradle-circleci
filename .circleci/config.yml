@@ -92,10 +92,10 @@ jobs:
       #     key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # ビルド      
-      - run: 
-          name: build
-          command: |
-            gradle build -x test -x check 
+      # - run: 
+      #     name: build
+      #     command: |
+      #       gradle build -x test -x check 
       
 
       - run: ls 
