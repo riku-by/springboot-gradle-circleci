@@ -94,9 +94,14 @@ jobs:
       - run: 
           name: build
           command: |
-            gradle build -x test -x check \
-            cd ~/repo \
-            ls
+            gradle build -x test -x check 
+      
+
+      - run: cd ~/repo
+      - run: ls
+
+
+
       # 単体テスト
       - when:
           condition: << parameters.exec-unit-test >>
