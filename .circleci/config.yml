@@ -164,4 +164,6 @@ jobs:
       # ビルドアーティファクトの保存
       - run: mkdir build_artifacts
       - run: cp -R springboot-gradle-circleci/build/libs/  build-artifacts/
-      - run: ls build-artifacts/
+      - store_artifacts:
+          path: build-artifacts/
+          destination: build-artifactsフォルダーをCircleCIのアーティファクトとして保存
