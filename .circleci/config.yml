@@ -93,12 +93,11 @@ jobs:
       #     key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # ビルド      
-      - run: 
-          name: build
-          command: |
-            cd springboot-gradle-circleci 
-            gradle build -x test -x check 
-            ls
+      # - run: 
+      #     name: build
+      #     command: |
+      #       cd springboot-gradle-circleci 
+      #       gradle build -x test -x check 
       
       # - run: ls
       # - run: chmod -R 777 springboot-gradle-circleci
@@ -146,13 +145,13 @@ jobs:
                 name: dependencycheck
                 command: |
                   gradle dependencyCheckAnalyze
-       # レポート発行・メトリクス計測
-      # - run: 
-      #     command: |
-      #       if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-      #       echo "all true"
-      #       if [<< parameters.exec-sonarqube >> && !<< parameters.sonarqube-branch >>]; then
-      #       echo "one true"
+      # レポート発行・メトリクス計測
+      - run: 
+          command: |
+            if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
+              echo "all true"
+            if [<< parameters.exec-sonarqube >> && !<< parameters.sonarqube-branch >>]; then
+              echo "one true"
       # - when:
           # condition: << parameters.exec-sonarqube >>
           # steps:
