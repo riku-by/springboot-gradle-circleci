@@ -74,8 +74,8 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - run: rm -rf ~/repo/*
-      - run: git clone https://github.com/riku-by/springboot-gradle-circleci.git
+      # - run: rm -rf ~/repo/*
+      # - run: git clone https://github.com/riku-by/springboot-gradle-circleci.git
 
       # - run: echo << parameters.exec-sonarqube >>
       # - run: echo << parameters.sonarqube-url >>
@@ -98,7 +98,7 @@ jobs:
       #       gradle build -x test -x check 
       
 
-      - run: ls 
+      - run: ls /springboot-gradle-circleci/
 
 
 
