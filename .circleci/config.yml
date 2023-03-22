@@ -97,7 +97,7 @@ jobs:
             gradle build -x test -x check 
       
 
-      - run: cd ~/repo/build
+      - run: cd ~/repo/build/
       - run: ls
 
 
