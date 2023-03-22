@@ -43,7 +43,7 @@ jobs:
       sonarqube-branch:
         description: SonarQubeのプロジェクト名へのブランチ名付与実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
-        default: true
+        default: false
       exec-qualitygate:
         description: Quality Gateの結果取得の実行有無を指定するパラメーター。true:実行する  false:実行しない
         type: boolean
@@ -155,13 +155,8 @@ jobs:
           condition: << parameters.exec-sonarqube >>  && << parameters.sonarqube-branch >>
           steps:
             - run: echo "You Won!"
-            # - run:
-            #     name: Install SonarScanner
-            #     command: |
-            #       mkdir -p ~/repo/SonarScanner
-            #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-            #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner    
-            # - run: 
-            #     name: sonarqube
-            #     command: |
-            #       gradle dependencyCheckAnalyze
+      - when:
+          condition: << parameters.exec-sonarqube >>  && ！<< parameters.sonarqube-branch >>
+          steps:
+            - run: echo "You Won!"
+           
