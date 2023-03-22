@@ -146,15 +146,15 @@ jobs:
                 command: |
                   gradle dependencyCheckAnalyze
       # レポート発行・メトリクス計測
-      - run: 
-          command: |
-            if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
-            - run: echo "You Won!"
-            
-      # - when:
-      #     condition: << parameters.exec-sonarqube >>
-      #     steps:
+      # - run: 
+      #     command: |
+      #       if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
       #       - run: echo "You Won!"
+            
+      - when:
+          condition: << parameters.exec-sonarqube >>  && << parameters.sonarqube-branch >>
+          steps:
+            - run: echo "You Won!"
             # - run:
             #     name: Install SonarScanner
             #     command: |
