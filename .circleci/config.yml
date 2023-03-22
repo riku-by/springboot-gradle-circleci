@@ -1,44 +1,163 @@
 version: 2.1
 
+orbs:
+  sonarqube: sonarsource/sonarcloud@1.1.1
+
 workflows:
   general-workflow:
     jobs:
-      - build
-      - unit-test
-      - jacoco-test
-
-
-
+      - build_package
 
 jobs:
-  build:    
-    docker:
-      - image: cimg/openjdk:17.0.6    
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle" }}
-            - v1-dependencies-
-
-      - run: gradle build -x test
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-  unit-test:
+  build_package:
+    parameters:
+      build-type:
+        description: 実行するパイプラインの種別を指定するパラメーター。app：全アプリケーションビルドパイプラインの実行。コンテナイメージを生成し、Artifact Registryに保管する。unit-app：単体アプリケーションビルドパイプラインの実行。アプリケーションファイルを生成し(zipファイル)、CircleCIストレージに保管する。common_parts：共通ライブラリビルドパイプラインの実行。共通ライブラリを生成し、Artifact RegistryのnpmレジストリとCircleCIストレージに保管する。
+        type: enum
+        enum: ["app", "unit-app", "common_parts"]
+        default: "app"
+      exec-unit-test:
+        description: JUnit 5での単体テストの実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-jacoco:
+        description: JaCoCoでのカバレッジ計測の実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-checkstyle:
+        description: CheckStyleでのコード検証の実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-securityscan:
+        description: Coverityでの脆弱性検査の実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-dependencycheck:
+        description: OWASP Dependency-Checkでの依存関係検証の実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-sonarqube:
+        description: SonarQubeの実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      sonarqube-branch:
+        description: SonarQubeのプロジェクト名へのブランチ名付与実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      exec-qualitygate:
+        description: Quality Gateの結果取得の実行有無を指定するパラメーター。true:実行する  false:実行しない
+        type: boolean
+        default: false
+      sonarqube-url:
+        description: SonarQubeログイン用URL
+        type: string
+        default: $SONARQUBE_URL
+      sonarqube-token:
+        description: SonarQubeログイン時に使用するトークン
+        type: string
+        default: $SONARQUBE_TOKEN
+      vendor-name:
+        description: SonarQubeのプロジェクト名の先頭に付与するベンダー名
+        type: string
+        default: $VENDOR_NAME
+      project-reponame:
+        description: GitHub Repo Name
+        type: string
+        default: ${CIRCLE_PROJECT_REPONAME}
+      project-branch:
+        description: GitHub Branch
+        type: string
+        default: ${CIRCLE_BRANCH}
     docker:
       - image: cimg/openjdk:17.0.6
+
+    working_directory: ~/repo
+
     steps:
+      - run: rm -rf ~/repo/*
       - checkout
 
-      - run: gradle test
-  jacoco-test:
-    docker:
-    - image: cimg/openjdk:17.0.6
-    steps:
-    - checkout
+      # - run: echo << parameters.exec-sonarqube >>
+      # - run: echo << parameters.sonarqube-url >>
+      # - run: echo << parameters.project-reponame >>
 
-    - run: gradle jacocoTestReport
+      # - restore_cache:
+      #     keys:
+      #       - v1-dependencies-{{ checksum "build.gradle" }}
+      #       - v1-dependencies-
+
+      # - save_cache:
+      #     paths:
+      #       - ~/.gradle
+      #     key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      # ビルド      
+      - run: 
+          name: build
+          command: |
+            gradle build -x test -x check 
+      
+
+      - run: ls 
+
+
+
+      # 単体テスト
+      - when:
+          condition: << parameters.exec-unit-test >>
+          steps:
+            - run: 
+                name: unit-test
+                command: |
+                  gradle test
+      - when:
+          condition: << parameters.exec-jacoco >>
+          steps:
+            - run: 
+                name: jacoco-test
+                command: |
+                  gradle jacocoTestReport
+      # コード検証
+      - when:
+          condition: << parameters.exec-checkstyle >>
+          steps:
+            - run: 
+                name: checkstyle
+                command: |
+                  gradle jacocoTestReport
+      # 脆弱性検査
+      - when:
+          condition: << parameters.exec-securityscan >>
+          steps:
+            - run: 
+                name: securityscan
+                command: |
+                  gradle dependencyCheckAnalyze
+      # 依存関係検証
+      - when:
+          condition: << parameters.exec-dependencycheck >>
+          steps:
+            - run: 
+                name: dependencycheck
+                command: |
+                  gradle dependencyCheckAnalyze
+       # レポート発行・メトリクス計測
+      # - run: 
+      #     command: |
+      #       if [<< parameters.exec-sonarqube >> && << parameters.sonarqube-branch >>]; then
+      #       echo "all true"
+      #       if [<< parameters.exec-sonarqube >> && !<< parameters.sonarqube-branch >>]; then
+      #       echo "one true"
+      # - when:
+          # condition: << parameters.exec-sonarqube >>
+          # steps:
+          #   - run:
+          #       name: Install SonarScanner
+          #       command: |
+          #         mkdir -p ~/repo/SonarScanner
+          #         wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          #         unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner    
+          #   - run: 
+          #       name: sonarqube
+          #       command: |
+          #         gradle dependencyCheckAnalyze
