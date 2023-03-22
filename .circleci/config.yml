@@ -76,20 +76,22 @@ jobs:
     steps: 
     - run: rm -rf ~/repo/SonarScanner/*
     
-    - checkout    
+    - checkout 
+
+    - run: echo $SONARQUBE_URL
     
-    - run:
-        name: Install SonarScanner
-        command: |          
-          mkdir -p ~/repo/SonarScanner
-          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-          unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
+    # - run:
+    #     name: Install SonarScanner
+    #     command: |          
+    #       mkdir -p ~/repo/SonarScanner
+    #       wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+    #       unzip -qq sonar-scanner-cli-4.8.0.2856-linux.zip -d ~/repo/SonarScanner
            
-    - run:
-        name: Get project from SonarQube
-        command: |    
-          RESULT=$(curl -H 'Authorization: Basic NjI2NWVjMThhNGQ3MDUzOWFmZDhjOWNjYWYxYTBkZTEzMDJlMWM0ZTo=' 'https://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by') \
-          echo $RESULT | python -c "import sys, json; print json.load(sys.stdin)['components']"
+    # - run:
+    #     name: Get project from SonarQube
+    #     command: |    
+    #       RESULT=$(curl -H 'Authorization: Basic NjI2NWVjMThhNGQ3MDUzOWFmZDhjOWNjYWYxYTBkZTEzMDJlMWM0ZTo=' 'https://sonarcloud.io/api/projects/search?projects=riku-by_springboot-gradle-circleci&organization=riku-by') \
+    #       echo $RESULT | python -c "import sys, json; print json.load(sys.stdin)['components']"
           
           
     # $SONARQUBE_URL:SonarQubeログイン用URL
