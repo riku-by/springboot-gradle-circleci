@@ -164,5 +164,5 @@ jobs:
       # ビルドアーティファクトの保存
       - run: mkdir build_artifacts
       - run: chmod -R 777 build_artifacts
-      # - run: cp -R ~/repo/springboot-gradle-circleci/build/  ~/build-artifacts/
-      - run: ls build-artifacts
+      - run: cp -R springboot-gradle-circleci/build/  build-artifacts/
+      - run: ls build-artifacts/
