@@ -75,7 +75,7 @@ jobs:
 
     steps:
       - run: rm -rf ~/repo/*
-      - run: mkdir '<< parameters.vendor-name >>'_<< parameters.project-reponame >>
+      # - run: mkdir '<< parameters.vendor-name >>'_<< parameters.project-reponame >>
       - run: git clone https://github.com/riku-by/springboot-gradle-circleci.git
 
       # - run: echo << parameters.exec-sonarqube >>
@@ -93,14 +93,16 @@ jobs:
       #     key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # ビルド      
-      # - run: 
-      #     name: build
-      #     command: |
-      #       gradle build -x test -x check 
+      - run: 
+          name: build
+          command: |
+            cd springboot-gradle-circleci \
+            gradle build -x test -x check \
+            ls
       
-      - run: ls
+      # - run: ls
       # - run: chmod -R 777 springboot-gradle-circleci
-      - run: ls springboot-gradle-circleci
+      # - run: ls springboot-gradle-circleci
       # - run: ls
 
 
